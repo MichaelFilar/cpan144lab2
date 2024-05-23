@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+</head>
+<body>
+    <h1>
+        GPS
+    </h1>
+    <div>
+        <span>City:  </span><span id="display_name"></span>
+    </div>
+    <div>
+        <span>Latitude:  </span><span id="lat"></span>
+    </div>
+    <div>
+        <span>Longitude:  </span><span id="lon"></span>
+    </div>
+
+    <button type="button" onclick="GetLocationFetch()">Get map location!</button>
+
+
+    <script>
+        function GetLocationFetch() {
+            var url = "https://nominatim.openstreetmap.org/search.php?city=taipei&format=jsonv2";
+            var var1 = fetch(url)
+                .then(response => {
+                    return response.json();
+                })
+                .then(json => UpdateLocationInfo(json))
+                .catch(reason => alert(reason));
+        }
+        function UpdateLocationInfo(myJson) {
+            document.getElementById("display_name").innerText = myJson[0].display_name
+            document.getElementById("lat").innerText = myJson[0].lat
+            document.getElementById("lon").innerText = myJson[0].lon
+        }
+    </script>
+</body>
+</html>
